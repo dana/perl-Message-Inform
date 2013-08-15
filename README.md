@@ -1,4 +1,8 @@
-Message-Inform
+# NAME
+
+Message::Inform - Intelligently distribute messages over time
+
+# SYNOPSIS
 
     use Message::Inform;
 
@@ -53,46 +57,100 @@ Message-Inform
     $inform->message({x => 'y', a => 'b', level => 'OK'});
     #main::a1() immediately calls as a 'close'
 
-INSTALLATION
+# DESCRIPTION
 
-To install this module, run the following commands:
+This module obviously has some 'deep' and 'subtle' behaviour; this
+0.1 release won't describe that, but future releases certainly will.
 
-	perl Makefile.PL
-	make
-	make test
-	make install
+# SUBROUTINES/METHODS
 
-SUPPORT AND DOCUMENTATION
+## new(state => $previous\_state)
 
-After installing, you can find documentation for this module with the
-perldoc command.
+Typical constructor.  Pass in the output from get\_state() to resume
+operations as they were at that time.
+
+## config($config)
+
+Set initial config or update running config at any time.
+    
+
+## get\_message\_configs($message)
+
+Returns all of the merged configs that will apply to the passed in
+message.
+
+## get\_relevant\_informs($message)
+
+Returns all of the informs that would apply to the passed in message.
+
+## message($message)
+
+Send a message into Inform.  This can be called with no arguments
+to trigger timed Inform fires if there's no other messages to be
+sent.
+
+## get\_state()
+
+Called with no argument, this returns the necessary state to be passed
+into a future constructor.  The module will then continue to function
+in exactly the same state as it was when get\_state() was called.
+=cut
+sub get\_state {
+    return {
+        tick => $tick,
+        config => $config,
+        instances => $instances,
+    };
+}
+
+## fire\_action($message, $action)
+
+This might not want to be a public method, but it is for now.
+
+# AUTHOR
+
+Dana M. Diederich, `diederich@gmail.com`
+
+# BUGS
+
+Please report any bugs or feature requests through [https://github.com/dana/perl-Message-Inform/issues](https://github.com/dana/perl-Message-Inform/issues).  I will be notified, and then you'll
+automatically be notified of progress on your bug as I make changes.
+
+# SUPPORT
+
+You can find documentation for this module with the perldoc command.
 
     perldoc Message::Inform
 
 You can also look for information at:
 
-    Report bugs and/or feature requests here:
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Message-Inform
+- Report bugs here:
 
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/Message-Inform
+    [https://github.com/dana/perl-Message-Inform/issues](https://github.com/dana/perl-Message-Inform/issues)
 
-    CPAN Ratings
-        http://cpanratings.perl.org/d/Message-Inform
+- AnnoCPAN: Annotated CPAN documentation
 
-    Search CPAN
-        https://metacpan.org/module/Message::Inform
+    [http://annocpan.org/dist/Message-Inform](http://annocpan.org/dist/Message-Inform)
+
+- CPAN Ratings
+
+    [http://cpanratings.perl.org/d/Message-Inform](http://cpanratings.perl.org/d/Message-Inform)
+
+- Search CPAN
+
+    [https://metacpan.org/module/Message::Inform](https://metacpan.org/module/Message::Inform)
 
 
-LICENSE AND COPYRIGHT
 
-Copyright (C) 2013 Dana M. Diederich
+# LICENSE AND COPYRIGHT
+
+Copyright 2013 Dana M. Diederich.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a
 copy of the full license at:
 
-L<http://www.perlfoundation.org/artistic_license_2_0>
+[http://www.perlfoundation.org/artistic\_license\_2\_0](http://www.perlfoundation.org/artistic\_license\_2\_0)
 
 Any use, modification, and distribution of the Standard or Modified
 Versions is governed by this Artistic License. By using, modifying or
@@ -123,4 +181,5 @@ YOUR LOCAL LAW. UNLESS REQUIRED BY LAW, NO COPYRIGHT HOLDER OR
 CONTRIBUTOR WILL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, OR
 CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 

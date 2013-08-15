@@ -12,13 +12,8 @@ use Data::Dumper;
 
 Message::Inform - Intelligently distribute messages over time
 
-=head1 VERSION
-
-Version 0.1
-
 =cut
 
-our $VERSION = '0.1';
 our $config = {};
 our $instances = {};
 our $tick = 0;
